@@ -9,9 +9,13 @@ class Category(models.Model):
     
 class TradeType(models.Model):
     type = models.CharField(max_length=50, unique=True)  # Exemple: Selling, Giving away
+    def __str__(self):
+        return self.type        
 
 class Status(models.Model):
     status = models.CharField(max_length=50, unique=True) # Exemple disponible, réservé, vendu
+    def __str__(self):
+        return self.status
 
 class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) # Relation Many-to-One vers User

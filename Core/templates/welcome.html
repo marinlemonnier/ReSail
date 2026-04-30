@@ -6,5 +6,18 @@
 <body>
     <h1>ReSail test !</h1>
     <p>First test of the app</p>
+    <h2>Items for Sale</h2>
+    <ul>
+        {% for item in items %}
+    <div class="item-card">
+        <!-- On rend le titre cliquable vers la page de détail -->
+        <h3><a href="{% url 'item_detail' item.id %}">{{ item.title }}</a></h3>
+        <p>{{ item.price }} {{ item.currency }} - {{ item.city }}</p>
+    </div>
+{% empty %}
+    <p>Aucune annonce disponible.</p>
+{% endfor %}
+    </ul>
+<a href="{% url 'create_item' %}">Ajouter un objet</a>
 </body>
 </html>

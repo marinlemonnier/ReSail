@@ -1,0 +1,9 @@
+<h1>{{ item.title }}</h1>
+<p><strong>Prix :</strong> {{ item.price }} {{ item.currency }}</p>
+<p><strong>Description :</strong> {{ item.description }}</p>
+<p><strong>Qualité :</strong> {{ item.item_quality }}</p>
+<p><strong>Localisation :</strong> {{ item.neighborhood }}, {{ item.city }}, {{ item.country }}</p>
+<p><strong>Vendeur :</strong> {{ item.user.username }}</p>
+
+<hr>
+<a href="{% url 'welcome' %}">Retour à l'accueil</a>
