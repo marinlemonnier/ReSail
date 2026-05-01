@@ -1,6 +1,19 @@
-<h1>Add an object</h1>
-<form method="post">
+<h1>Créer une annonce</h1>
+
+<form method="post" enctype="multipart/form-data"> <!-- Important pour le téléchargement de fichiers -->
     {% csrf_token %}
+    
+    <h3>Details of the item</h3>
     {{ form.as_p }}
-    <button type="submit">Publish</button>
+
+    <h3>Photos (Max 5)</h3>
+    {{ formset.management_form }} 
+    {% for f in formset %}
+        {{ f.as_p }}
+    {% endfor %}
+
+    <button type="submit">publish the item</button>
 </form>
+
+<hr>
+<a href="{% url 'welcome' %}">Cancel</a>

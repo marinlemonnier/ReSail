@@ -1,5 +1,6 @@
 from django import forms
-from .models import Item
+from .models import Item, ItemImage
+from django.forms import inlineformset_factory
 
 class ItemForm(forms.ModelForm):
     class Meta:
@@ -12,3 +13,12 @@ class ItemForm(forms.ModelForm):
         ]
 
 
+#Fais avec IA car je ne savais pas comment faire
+ItemImageFormSet = inlineformset_factory(
+    Item, 
+    ItemImage, 
+    fields=['image'], 
+    extra=5,      # Nombre de champs vides affichés
+    max_num=5,    # Limite maximum de 5 photos[cite: 1]
+    can_delete=False
+)

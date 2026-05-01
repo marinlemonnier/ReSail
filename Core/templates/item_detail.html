@@ -1,4 +1,13 @@
 <h1>{{ item.title }}</h1>
+<div class="item-images" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+    {% for image_obj in item.images.all %}
+        <div class="image-container">
+            <img src="{{ image_obj.image.url }}" alt="{{ item.title }}" style="width: 200px; height: auto; border-radius: 8px;">
+        </div>
+    {% empty %}
+        <p><em>Aucune photo disponible pour cette annonce.</em></p>
+    {% endfor %}
+</div>
 <p><strong>Prix :</strong> {{ item.price }} {{ item.currency }}</p>
 <p><strong>Description :</strong> {{ item.description }}</p>
 <p><strong>Qualité :</strong> {{ item.item_quality }}</p>
