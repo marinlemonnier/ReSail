@@ -122,3 +122,6 @@ MEDIA_URL = '/media/'
 
 # Chemin physique sur mon disque dur pour stocker les photos
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Chemin physique sur mon disque dur pour stocker les utilisateurs
+AUTH_USER_MODEL = 'Core.User'

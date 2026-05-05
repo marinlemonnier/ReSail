@@ -1,6 +1,13 @@
 from django import forms
-from .models import Item, ItemImage
+from django.contrib.auth.forms import UserCreationForm
+from .models import Item, ItemImage, User
 from django.forms import inlineformset_factory
+
+class SignUpForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ("username", "first_name", "last_name", "email", "phone_number", "profile_picture")
+
 
 class ItemForm(forms.ModelForm):
     class Meta:
