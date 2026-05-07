@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ItemForm, ItemImageFormSet, SignUpForm
 from .models import Item
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 
 def logout_view(request):
     logout(request) # Déconnecte l'utilisateur
@@ -38,7 +39,8 @@ def welcome(request):
     items = Item.objects.all()  # Récupère tous les objets pour les afficher sur la page d'accueil
     return render(request, 'welcome.html', {'items': items})
 
-#Créer une annonce
+#Créer une annonce / on utilise ici @login_required pour vérifier que l'utilisateur est connecté avant de créer une annonce.
+@login_required
 def create_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
