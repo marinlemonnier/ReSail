@@ -31,7 +31,14 @@ class Item(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, default='NOK')
-    item_quality = models.CharField(max_length=100)
+
+    QUALITY_CHOICES = [
+        ('3', 'New'),
+        ('2', 'Good'),
+        ('1', 'Used'),
+    ]
+
+    item_quality = models.CharField(choices=QUALITY_CHOICES)
     date_publication = models.DateTimeField(auto_now_add=True)
 
     country = models.CharField(max_length=100)
