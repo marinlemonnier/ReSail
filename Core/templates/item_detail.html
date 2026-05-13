@@ -1,18 +1,69 @@
-<h1>{{ item.title }}</h1>
-<div class="item-images" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-    {% for image_obj in item.images.all %}
-        <div class="image-container">
-            <img src="{{ image_obj.image.url }}" alt="{{ item.title }}" style="width: 200px; height: auto; border-radius: 8px;">
-        </div>
-    {% empty %}
-        <p><em>Aucune photo disponible pour cette annonce.</em></p>
-    {% endfor %}
-</div>
-<p><strong>Prix :</strong> {{ item.price }} {{ item.currency }}</p>
-<p><strong>Description :</strong> {{ item.description }}</p>
-<p><strong>Qualité :</strong> {{ item.item_quality }}</p>
-<p><strong>Localisation :</strong> {{ item.neighborhood }}, {{ item.city }}, {{ item.country }}</p>
-<p><strong>Vendeur :</strong> {{ item.user.username }}</p>
+{% extends 'base.html' %}
+{% load static %}
 
-<hr>
-<a href="{% url 'welcome' %}">Retour à l'accueil</a>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/item_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container detail-wrapper">
+    <a href="{% url 'welcome' %}" class="back-link">
+        ← Back to marketplace
+    </a>
+
+    <div class="item-main-grid">
+        <div class="item-gallery-section">
+            <div class="main-image-container">
+                {% if item.images.all %}
+                    <img src="{{ item.images.first.image.url }}" alt="{{ item.title }}" class="main-item-img">
+                {% else %}
+                    <div class="image-placeholder">No photo</div>
+                {% endif %}
+            </div>
+            
+            {% if item.images.all|length > 1 %}
+            <div class="thumbnail-strip">
+                {% for image_obj in item.images.all %}
+                    <img src="{{ image_obj.image.url }}" class="thumbnail">
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="item-info-sidebar">
+            <div class="profile-header">
+                {% if item.user.profile_picture %}
+                    <img src="{{ item.user.profile_picture.url }}" class="profile-avatar">
+                {% else %}
+                    <div class="avatar-placeholder"></div>
+                {% endif %}
+                <div class="profile-meta">
+                    <p class="profile-username">{{ item.user.username }}</p>
+                    <p class="profile-joined">Member since 2024</p> </div>
+            </div>
+
+            <h1 class="product-title">{{ item.title }}</h1>
+            <p class="product-price">{{ item.price }} {{ item.currency }}</p>
+            
+            <ul class="product-details-list">
+                <li><span>Category:</span> {{ item.category.title }}</li>
+                <li><span>Condition:</span> Grade {{ item.get_item_quality_display }}</li>
+                <li><span>Trade Type:</span> {{ item.trade_type.type }}</li>
+                <li><span>Location:</span> {{ item.neighborhood }}, {{ item.city }}</li>
+            </ul>
+
+            <div class="description-block">
+                <h3>Description</h3>
+                <p>{{ item.description }}</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-primary">Contact Seller</button>
+                <button class="btn-secondary">Make an Offer</button>
+            </div>
+
+            <p class="listing-date">Published {{ item.date_publication|timesince }} ago</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

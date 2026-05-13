@@ -14,18 +14,51 @@
 
     <div class="container">
         <h2 class="section-title">Latest Items</h2>
+        
         <div class="ads-grid">
             {% for item in items %}
-                <div class="ad-card">
-                    <div class="ad-img-placeholder"></div>
-                    <div class="ad-body">
-                        <h3><a href="{% url 'item_detail' item.id %}">{{ item.title }}</a></h3>
-                        <p class="ad-price">{{ item.price }} {{ item.currency }}</p>
-                        <p class="ad-city">📍 {{ item.city }}</p>
+                <a href="{% url 'item_detail' item.id %}" class="ad-card-link">
+                    <div class="ad-card">
+                        <div class="ad-image-container">
+                            <span class="ad-badge">{{ item.trade_type.type }}</span>
+                            
+                            {% if item.images.all %}
+                                <img src="{{ item.images.first.image.url }}" alt="{{ item.title }}">
+                            {% else %}
+                                <div class="ad-img-placeholder">
+                                    <span>No photo</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="ad-body">
+                            <div class="ad-user">
+                                {% if item.user.profile_picture %}
+                                    <img src="{{ item.user.profile_picture.url }}" alt="{{ item.user.username }}" class="user-avatar">
+                                {% else %}
+                                    <div class="user-avatar-placeholder"></div>
+                                {% endif %}
+                                <span class="username">{{ item.user.username }}</span>
+                            </div>
+                            
+                            <h3>{{ item.title }}</h3>
+                            
+                            <p class="ad-price">{{ item.price }} {{ item.currency }}</p>
+                            
+                            <div class="ad-meta">
+                                <span class="ad-city">📍 {{ item.city }}</span>
+                                <span class="ad-quality-tag">{{ item.get_item_quality_display }}</span>
+                            </div>
+                            
+                            <div class="ad-footer">
+                                <span class="ad-category">{{ item.category.title }}</span>
+                                <span class="ad-time">{{ item.date_publication|timesince }} ago</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </a>
             {% empty %}
-                <p>No items available for sale yet.</p>
+                <p class="empty-msg">No items available for sale yet.</p>
             {% endfor %}
         </div>
     </div>

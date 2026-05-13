@@ -1,0 +1,138 @@
+.detail-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    transition: color 0.2s;
+}
+
+.back-link:hover { color: #000; }
+
+.item-main-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Galerie*/
+.main-image-container {
+    width: 100%;
+    height: 550px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #f9f9f9;
+}
+
+.main-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-strip {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.thumbnail {
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+/* Sidebar d'Informations */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.profile-avatar, .avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+}
+
+.profile-username { font-weight: 700; font-size: 17px; margin: 0; }
+.profile-joined { font-size: 13px; color: #888; margin-top: 2px; }
+
+.product-title { font-size: 42px; font-weight: 800; margin: 10px 0; letter-spacing: -1.5px; line-height: 1.1; }
+.product-price { font-size: 32px; font-weight: 800; color: #000; margin-bottom: 30px; margin-top: 5px; }
+
+/* Liste de Détails */
+.product-details-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 35px;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.product-details-list li {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-details-list li span {
+    font-weight: 600;
+    color: #000;
+}
+
+.description-block h3 { font-size: 19px; margin-bottom: 12px; }
+.description-block p { line-height: 1.7; color: #555; font-size: 15px; }
+
+/* Boutons Actions */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary {
+    background: #000;
+    color: #fff;
+}
+
+.btn-primary:hover { background: #333; }
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #000;
+}
+
+.btn-secondary:hover { background: #e0e0e0; }
+
+.listing-date { text-align: center; font-size: 12px; color: #ccc; margin-top: 20px; }
