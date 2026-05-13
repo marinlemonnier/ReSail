@@ -33,12 +33,13 @@ class Item(models.Model):
     currency = models.CharField(max_length=3, default='NOK')
 
     QUALITY_CHOICES = [
-        ('3', 'New'),
+        ('4', 'Mint'),
+        ('3', 'Very Good'),
         ('2', 'Good'),
-        ('1', 'Used'),
+        ('1', 'Fair'),
     ]
-
-    item_quality = models.CharField(choices=QUALITY_CHOICES)
+    
+    item_quality = models.CharField(max_length=1, choices=QUALITY_CHOICES, default='3')
     date_publication = models.DateTimeField(auto_now_add=True)
 
     country = models.CharField(max_length=100)
