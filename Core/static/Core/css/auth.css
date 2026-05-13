@@ -1,0 +1,133 @@
+/* --- Configuration de auth qui empeche le scroll--- */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Bloque le scroll sur toute la page */
+}
+
+/* --- BOUTON BACK TO MARKETPLACE --- */
+.back-to-menu {
+    position: fixed; /* Permet d'avoir un bouton fixe en haut à gauche qui cache le logo et qui permet de revenir au menu principal  */
+    top: 20px;
+    left: 20px;
+    z-index: 1002;
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+}
+
+.back-to-menu:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* --- Structure de signup qui permet la vue separée en 2 entre l'image et le form --- */
+.signup-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.left-panel {
+    flex: 1.1;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                url('/media/image_signup.jpg') center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8%;
+    color: #fff;
+}
+
+.left-panel h1 {
+    font-size: 42px;           
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+    max-width: 450px;         
+}
+
+.left-panel p {
+    font-size: 18px;           
+    line-height: 1.6;
+    max-width: 450px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.left-panel {
+    flex: 1.1;             
+    padding: 0 8%;             
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    overflow-y: auto; /* Permet de scroller UNIQUEMENT le formulaire si l'écran est petit */
+    padding: 40px 0;
+}
+
+/* --- Form et boutons --- */
+.auth-container, .form-container {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+    text-align: center;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1.5px solid #E5E5E5;
+    border-radius: 50px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.btn-auth {
+    width: 100%;
+    background: #000;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* --- Login page --- */
+.auth-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

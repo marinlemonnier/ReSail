@@ -64,3 +64,7 @@ def item_detail(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     return render(request, 'item_detail.html', {'item': item}) 
     
+
+# Mon profil
+def my_profile(request):
+    return render(request, 'my_profile.html')

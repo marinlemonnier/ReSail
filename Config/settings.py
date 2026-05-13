@@ -115,7 +115,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+#j'ai ajouté ces lignes pour que Django puisse trouver mes fichiers statiques (CSS, JS, images) dans Core/static/Core/css
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "Core" / "static",
+]
 
 # Chemin URL pour accéder aux photos
 MEDIA_URL = '/media/'

@@ -1,16 +1,63 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Créer un compte</title>
-</head>
-<body>
-    <h2>Création de compte</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p>Déjà un compte ? <a href="{% url 'login' %}">Connectez-vous ici</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Join ReSail{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'welcome' %}" style="position: absolute; top: 20px; left: 20px; z-index: 1001; text-decoration: none; color: #000; font-weight: 700; font-size: 13px; background: #fff; padding: 8px 16px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">← Back to Marketplace</a>
+
+<div class="signup-wrapper">
+    <div class="left-panel">
+        <h1>The New, Affordable Way to Settle In.</h1>
+        <p>ReSail makes finding budget-friendly, pre-loved essentials seamless. Connect with our student community and make your new city feel like home.</p>
+    </div>
+
+    <div class="right-panel">
+        <div class="form-container" style="width: 100%; max-width: 380px; padding: 0 30px;">
+            <a href="/" style="font-size: 24px; font-weight: 800; color: #000; text-decoration: none; margin-bottom: 20px; display: block;">ReSail</a>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group"><input type="text" name="username" placeholder="Username" required></div>
+                <div class="form-group"><input type="text" name="first_name" placeholder="First Name" required></div>
+                <div class="form-group"><input type="text" name="last_name" placeholder="Last Name" required></div>
+                <div class="form-group"><input type="email" name="email" placeholder="Email Address" required></div>
+                <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number" required></div>
+                <div class="form-group"><input type="password" name="password" placeholder="Password" required></div>
+                <div class="form-group"><input type="password" name="confirm_password" placeholder="Confirm Password" required></div>
+
+                <div class="profile-upload" style="margin: 12px 0;">
+                    <div class="drop-zone" id="drop-zone" style="border: 1.5px dashed #E5E5E5; border-radius: 20px; padding: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                        <input type="file" name="profile_picture" style="display: none;" id="file-input" accept="image/*">
+                        <div id="upload-prompt" style="font-size: 13px; font-weight: 600; color: #888;">+ Add profile picture</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth">Create account</button>
+            </form>
+
+            <p style="margin-top: 12px; font-size: 13px; color: #666; text-align: center;">
+                Already a member? <a href="{% url 'login' %}" style="color: #000; font-weight: 800; text-decoration: none;">Sign in</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Petit script pour l'aperçu de l'image
+    const fileInput = document.getElementById('file-input');
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            document.getElementById('upload-prompt').innerText = "Photo added!";
+            dropZone.style.borderColor = "#000";
+        }
+    });
+</script>
+{% endblock %}

@@ -1,45 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome to ReSail</title>
-</head>
-<body>
-    <header>
-        {% if user.is_authenticated %}
-            <div>
-                <!-- Affichage du pseudo et de la photo de profil -->
-                <span>Welcome, {{ user.username }}</span>
-                {% if user.profile_picture %}
-                    <img src="{{ user.profile_picture.url }}" alt="Photo de profil" style="width: 40px; height: 40px; border-radius: 50%;">
-                {% endif %}
-                
-                <!-- Lien de déconnexion -->
-                <a href="{% url 'logout' %}"><button>Logout</button></a>
-            </div>
-        {% else %}
-            <div>
-                <!-- Boutons pour utilisateurs non connectés -->
-                <a href="{% url 'login' %}"><button>Login</button></a>
-                <a href="{% url 'signup' %}"><button>Sign up</button></a>
-            </div>
-        {% endif %}
-    </header>
+{% extends 'base.html' %}
+{% load static %}
 
-    <h1>ReSail test !</h1>
-    <p>First test of the app</p>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/welcome.css' %}">
+{% endblock %}
 
-    <h2>Items for Sale</h2>
-    <ul>
-        {% for item in items %}
-            <div class="item-card">
-                <h3><a href="{% url 'item_detail' item.id %}">{{ item.title }}</a></h3>
-                <p>{{ item.price }} {{ item.currency }} - {{ item.city }}</p>
-            </div>
-        {% empty %}
-            <p>No items available for sale.</p>
-        {% endfor %}
-    </ul>
+{% block content %}
+    <div class="hero-container">
+        <div class="hero-card">
+            <img src="/media/image_1ff759.png" alt="ReSail Banner">
+        </div>
+    </div>
 
-    <a href="{% url 'create_item' %}">Add item</a>
-</body>
-</html>
+    <div class="container">
+        <h2 class="section-title">Latest Items</h2>
+        <div class="ads-grid">
+            {% for item in items %}
+                <div class="ad-card">
+                    <div class="ad-img-placeholder"></div>
+                    <div class="ad-body">
+                        <h3><a href="{% url 'item_detail' item.id %}">{{ item.title }}</a></h3>
+                        <p class="ad-price">{{ item.price }} {{ item.currency }}</p>
+                        <p class="ad-city">📍 {{ item.city }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No items available for sale yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
