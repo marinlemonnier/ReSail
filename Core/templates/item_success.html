@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Success - ReSail</title>
-</head>
-<body>
-    <h1>Your announcement has been published!</h1>
-    <p>Your item is now visible on the platform.</p>
+{% extends 'base.html' %}
+{% load static %}
 
-    <a href="{% url 'welcome' %}">
-        <button type="button">Retour à l'accueil</button>
-    </a>
-</body>
-</html>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/item_success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+
+        <h1>Successfully Published!</h1>
+        <p>Your item <strong>"{{ item.title }}"</strong> is now live. Students can now find it and contact you.</p>
+
+        <div class="success-actions">
+            <a href="{% url 'item_detail' item.id %}" class="btn-view">View your listing</a>
+            <a href="{% url 'welcome' %}" class="btn-home">Back to marketplace</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

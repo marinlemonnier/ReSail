@@ -38,6 +38,27 @@
     object-fit: cover;
 }
 
+/* Appercu de l'image */
+.img-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Remplit la case sans déformer */
+    border-radius: 16px; /* Doit être identique à .photo-card */
+    z-index: 1; /* Derrière l'input invisible mais devant le fond */
+}
+
+.photo-card {
+    position: relative;
+    overflow: hidden; /* Pour que l'image ne dépasse pas des arrondis */
+}
+
+.plus-icon {
+    z-index: 0;
+}
+
 .thumbnail-strip {
     display: flex;
     gap: 15px;

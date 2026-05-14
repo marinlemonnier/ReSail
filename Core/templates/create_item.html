@@ -1,19 +1,102 @@
-<h1>Créer une annonce</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<form method="post" enctype="multipart/form-data"> <!-- Important pour le téléchargement de fichiers -->
-    {% csrf_token %}
-    
-    <h3>Details of the item</h3>
-    {{ form.as_p }}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/create_item.css' %}">
+{% endblock %}
 
-    <h3>Photos (Max 5)</h3>
-    {{ formset.management_form }} 
-    {% for f in formset %}
-        {{ f.as_p }}
-    {% endfor %}
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h1>List an Item</h1>
+        <p>Post your item to the student community.</p>
+    </div>
 
-    <button type="submit">Publish the item</button>
-</form>
+    <form method="post" enctype="multipart/form-data" class="resail-form-wrapper" novalidate>
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-<hr>
-<a href="{% url 'welcome' %}">Cancel</a>
+        {% if form.errors or formset.errors %}
+            <div class="error-banner" style="background: #FEECEB; color: #D93025; padding: 20px; border-radius: 16px; margin-bottom: 30px;">
+                <p><strong>Form invalid:</strong></p>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        <li>{{ field }}: {{ errors|striptags }}</li>
+                    {% endfor %}
+                </ul>
+                {{ formset.errors }}
+            </div>
+        {% endif %}
+
+        <div class="form-section">
+            <div class="section-title-row">
+                <span class="step-circle">1</span>
+                <h2>Item Essentials</h2>
+            </div>
+            <div class="grid-layout">
+                <div class="field-group full-width"><label>Title</label>{{ form.title }}</div>
+                <div class="field-group"><label>Category</label>{{ form.category }}</div>
+                <div class="field-group"><label>Condition</label>{{ form.item_quality }}</div>
+                <div class="field-group full-width"><label>Description</label>{{ form.description }}</div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title-row">
+                <span class="step-circle">2</span>
+                <h2>Details & Location</h2>
+            </div>
+            <div class="grid-layout">
+                <div class="field-group"><label>Listing Type</label>{{ form.trade_type }}</div>
+                <div class="field-group"><label>Price</label>{{ form.price }}</div>
+                <div class="field-group"><label>Currency</label>{{ form.currency }}</div>
+                <div class="field-group"><label>Country</label>{{ form.country }}</div>
+                <div class="field-group"><label>City</label>{{ form.city }}</div>
+                <div class="field-group"><label>Neighborhood</label>{{ form.neighborhood }}</div>
+                <div style="display: none;">{{ form.status }}</div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title-row">
+                <span class="step-circle">3</span>
+                <h2>Add Photos</h2>
+            </div>
+            <div class="photo-upload-grid">
+                {% for image_form in formset %}
+                <div class="photo-card">
+                    {{ image_form.image }}
+                    <div class="plus-icon">+</div>
+                    <img id="preview-{{ forloop.counter0 }}" src="" class="img-preview" style="display: none;">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <button type="submit" class="btn-submit">List Item Now</button>
+            <a href="{% url 'welcome' %}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Preview Script
+    document.querySelectorAll('.photo-card input[type="file"]').forEach((input, index) => {
+        input.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const preview = document.getElementById('preview-' + index);
+                const plusIcon = this.parentElement.querySelector('.plus-icon');
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (plusIcon) plusIcon.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+{% endblock %}

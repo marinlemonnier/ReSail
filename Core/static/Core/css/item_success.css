@@ -1,0 +1,77 @@
+.success-container {
+    height: 70vh; /* Centre la carte verticalement sur l'écran */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.success-card {
+    background: #ffffff;
+    max-width: 500px;
+    width: 100%;
+    padding: 60px 40px;
+    border-radius: 24px;
+    border: 1px solid #eeeeee;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.success-icon {
+    color: #000; /* Noir ReSail */
+    margin-bottom: 30px;
+    display: inline-block;
+}
+
+.success-card h1 {
+    font-size: 32px;
+    font-weight: 850;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+    color: #1D1D1F;
+}
+
+.success-card p {
+    font-size: 16px;
+    color: #86868B;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.success-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Bouton principal (Noir) */
+.btn-view {
+    background: #000;
+    color: #fff;
+    padding: 18px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+.btn-view:hover {
+    transform: scale(1.02);
+}
+
+/* Bouton secondaire (Gris clair) */
+.btn-home {
+    background: #F5F5F7;
+    color: #000;
+    padding: 18px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+.btn-home:hover {
+    background: #E8E8ED;
+}

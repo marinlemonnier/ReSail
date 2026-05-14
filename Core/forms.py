@@ -12,13 +12,15 @@ class SignUpForm(UserCreationForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        # On liste les champs que l'utilisateur doit remplir
         fields = [
             'title', 'description', 'price', 'currency', 
             'item_quality', 'country', 'city', 'neighborhood', 
-            'trade_type', 'status', 'category'
+            'trade_type', 'category' # J'ai enlevé status d'ici car il est mit par defaut 
         ]
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
 
 #Fais avec IA car je ne savais pas comment faire
 ItemImageFormSet = inlineformset_factory(

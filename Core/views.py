@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ItemForm, ItemImageFormSet, SignUpForm
-from .models import Item
+from .models import Item, Status
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
@@ -36,7 +36,7 @@ def login_view(request):
 
 #The welcome page
 def welcome(request):
-    items = Item.objects.all()  # Récupère tous les objets pour les afficher sur la page d'accueil
+    items = Item.objects.all().order_by('-date_publication')  # Récupère tous les objets pour les afficher sur la page d'accueil dans l'ordre d'ajout 
     return render(request, 'welcome.html', {'items': items})
 
 #Créer une annonce / on utilise ici @login_required pour vérifier que l'utilisateur est connecté avant de créer une annonce.
@@ -48,6 +48,8 @@ def create_item(request):
         if form.is_valid() and formset.is_valid():
             item = form.save(commit=False)
             item.user = request.user
+            status_obj = Status.objects.get(status='Available')
+            item.status = status_obj
             item.save()
             formset.instance = item
             formset.save()
