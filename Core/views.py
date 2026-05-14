@@ -70,3 +70,12 @@ def item_detail(request, item_id):
 # Mon profil
 def my_profile(request):
     return render(request, 'my_profile.html')
+
+#Supprimer umon annonce
+@login_required
+def delete_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    if item.user == request.user:
+        item.delete()
+        return redirect('welcome')
+    return redirect('item_detail', item_id=item_id)
