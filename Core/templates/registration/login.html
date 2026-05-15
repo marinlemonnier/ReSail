@@ -12,7 +12,7 @@
     <div class="auth-container">
         <a href="/" class="logo-auth" style="font-size: 32px; font-weight: 800; color: #000; text-decoration: none; display: block; margin-bottom: 40px;">ReSail</a>
         <h2>Sign in</h2>
-        
+
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
@@ -25,6 +25,12 @@
             </div>
             <button type="submit" class="btn-auth">Sign in</button>
         </form>
+
+        {% if error %}
+            <div class="error-message" style="color: #ff0000; margin-bottom: 20px; font-size: 14px;">
+                {{ error }}
+            </div>
+        {% endif %}
         
         <p class="switch-auth" style="margin-top: 30px; font-size: 14px; color: #666;">
             New here? <a href="{% url 'signup' %}">Create an account</a>
