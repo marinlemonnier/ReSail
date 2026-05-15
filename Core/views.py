@@ -29,7 +29,7 @@ def login_view(request):
             return redirect('welcome')
         return render(request, "registration/login.html", {
             "username": username, 
-            "error": "Identifiants invalides"
+            "error": "Invalid password or username"
         })
     return render(request, "registration/login.html")
 
