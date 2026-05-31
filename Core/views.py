@@ -79,3 +79,31 @@ def delete_item(request, item_id):
         item.delete()
         return redirect('welcome')
     return redirect('item_detail', item_id=item_id)
+
+#Modifier mon annonce
+@login_required
+def edit_item(request, item_id):
+    # Récupération de l'item ou 404
+    item = get_object_or_404(Item, pk=item_id)
+    
+    # Sécurité stricte : Seul le propriétaire peut modifier
+    if item.user != request.user:
+        return redirect('item_detail', item_id=item.id)
+        
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES, instance=item)
+        formset = ItemImageFormSet(request.POST, request.FILES, instance=item)
+        
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+            return redirect('item_detail', item_id=item.id)
+    else:
+        form = ItemForm(instance=item)
+        formset = ItemImageFormSet(instance=item)
+        
+    return render(request, 'edit_item.html', {
+        'form': form, 
+        'formset': formset, 
+        'item': item
+    })
