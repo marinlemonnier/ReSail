@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Core/css/edit_item.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <h2>Modify Item : {{ item.title }}</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <h3 style="margin-top: 20px;">Images de l'annonce</h3>
+        {{ formset.management_form }}
+        <div class="formset-images">
+            {% for f in formset %}
+                <div style="margin-bottom: 15px; padding: 10px; border: 1px solid #eee; border-radius: 4px;">
+                    {{ f.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        
+        <button type="submit" style="width: 100%; background-color: #28a745; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px;">
+            Save changes
+        </button>
+    </form>
+    
+    <a href="{% url 'item_detail' item.id %}" style="display: block; text-align: center; margin-top: 15px; color: #6c757d; text-decoration: none;">
+        Cancel
+    </a>
+</div>
+{% endblock %}

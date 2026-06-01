@@ -59,6 +59,10 @@
 
             <div class="action-buttons">
                 {% if request.user == item.user %}
+                    <a href="{% url 'edit_item' item.id %}" class="btn-edit" style="display: block; text-align: center; width: 100%; background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; margin-bottom: 10px; box-sizing: border-box;">
+                        Edit my item
+                    </a>
+
                     <form action="{% url 'delete_item' item.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this listing?');" style="width: 100%;">
                         {% csrf_token %}
                         <button type="submit" class="btn-danger" style="width: 100%; background-color: #dc3545; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
@@ -67,7 +71,6 @@
                     </form>
                 {% else %}
                     <button class="btn-primary">Contact Seller</button>
-                    <button class="btn-secondary">Make an Offer</button>
                 {% endif %}
             </div>
 
