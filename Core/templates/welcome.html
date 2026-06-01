@@ -11,6 +11,34 @@
             <img src="/media/image_1ff759.png" alt="ReSail Banner">
         </div>
     </div>
+    <div class="search-filter-section">
+        <form method="get" action="" class="search-filter-form">
+            
+            <div class="search-box">
+                <input type="text" name="q" value="{{ request.GET.q|default_if_none:'' }}" placeholder="What are you looking for ?">
+            </div>
+
+            <div class="search-divider"></div>
+
+            <div class="sort-box">
+                <select name="sort" id="sort-select" onchange="this.form.submit()">
+                    <option value="">Sort by: Latest</option>
+                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    <option value="title" {% if request.GET.sort == 'title' %}selected{% endif %}>Name (A-Z)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-search" title="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap='round' stroke-linejoin='round'>
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            
+        </form>
+    </div>
+
 
     <div class="container">
         <h2 class="section-title">Latest Items</h2>

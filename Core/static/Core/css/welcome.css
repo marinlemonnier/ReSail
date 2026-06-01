@@ -200,11 +200,109 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #e0e0e0; /* Un gris neutre si pas de photo */
+    background: #e0e0e0; 
 }
 
 .username {
     font-size: 13px;
     font-weight: 600;
     color: #444;
+}
+
+
+/* Style pour le bloc de recherche et filtrage */
+.search-filter-section {
+    max-width: 900px; 
+    margin: -40px auto 40px auto; 
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.search-filter-form {
+    display: flex;
+    background: #ffffff;
+    padding: 10px 14px;
+    border-radius: 100px; 
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); 
+    align-items: center;
+    border: 1px solid #eee;
+}
+
+.search-box {
+    display: flex;
+    flex: 3;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    padding: 14px 10px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #222;
+    outline: none;
+    background: transparent;
+}
+
+.search-divider {
+    width: 1px;
+    height: 35px;
+    background-color: #e5e5e5;
+    margin: 0 15px;
+}
+
+.sort-box {
+    display: flex;
+    align-items: center;
+    flex: 1.5;
+    min-width: 160px;
+    padding-right: 10px;
+}
+
+.sort-box select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 14px 25px 14px 5px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 14px;
+}
+
+/* Bouton rond noir avec la loupe */
+.btn-search {
+    width: 48px;
+    height: 48px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-search:hover {
+    background-color: #222222;
+    transform: scale(1.05);
+}
+
+.btn-search svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
 }

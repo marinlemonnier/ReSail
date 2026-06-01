@@ -36,8 +36,25 @@ def login_view(request):
 
 #The welcome page
 def welcome(request):
-    items = Item.objects.all().order_by('-date_publication')  # Récupère tous les objets pour les afficher sur la page d'accueil dans l'ordre d'ajout 
+    items = Item.objects.all()
+    query = request.GET.get('q')
+    if query:
+        items = items.filter(title__icontains=query)
+    sort_by = request.GET.get('sort')
+    if sort_by == 'price_asc':
+        items = items.order_by('price')
+    elif sort_by == 'price_desc':
+        items = items.order_by('-price')
+    elif sort_by == 'title':
+        items = items.order_by('title')
+    else:
+        items = items.order_by('-date_publication')
     return render(request, 'welcome.html', {'items': items})
+
+#Ancien version crash test 
+#def welcome(request):
+    #items = Item.objects.all().order_by('-date_publication')  # Récupère tous les objets pour les afficher sur la page d'accueil dans l'ordre d'ajout 
+    #return render(request, 'welcome.html', {'items': items})
 
 #Créer une annonce / on utilise ici @login_required pour vérifier que l'utilisateur est connecté avant de créer une annonce.
 @login_required
