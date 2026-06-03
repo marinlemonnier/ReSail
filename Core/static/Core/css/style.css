@@ -35,6 +35,42 @@ header {
 
 .nav-buttons { display: flex; align-items: center; gap: 15px; }
 
+
+/* Bouton favoris*/
+.btn-fav-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border: 1.5px solid var(--gray-border);
+    border-radius: 50px; 
+    color: var(--black);
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 14px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-fav-nav:hover { 
+    border-color: var(--black); 
+    background-color: var(--gray-light);
+    transform: translateY(-1px); 
+}
+
+.btn-fav-nav:hover .heart-icon {
+    transform: scale(1.15); 
+}
+
+.heart-icon {
+    font-size: 14px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+/* Bouton post */
+
 .btn-post { 
     background-color: transparent; 
     color: var(--black); 
@@ -63,6 +99,7 @@ header {
     font-weight: 600;
     font-size: 14px;
 }
+
 .nav-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; background: #333; }
 .dropdown-content { display: none; position: absolute; right: 0; top: 100%; padding-top: 10px; min-width: 180px; z-index: 1000; }
 .dropdown-inner { background-color: white; box-shadow: 0px 10px 30px rgba(0,0,0,0.1); border-radius: 15px; overflow: hidden; border: 1px solid #eee; }

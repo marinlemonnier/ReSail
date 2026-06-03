@@ -57,3 +57,17 @@ class Item(models.Model):
 class ItemImage(models.Model): # Support multi-images (One-to-Many)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='items/') # Pour les photos des annonces
+
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='favorited_by')
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # Ca empeche l'utilisateur de mettre le même item plusieurs fois dans ses favoris
+        unique_together = ('user', 'item') 
+
+    def __str__(self):
+        return f"{self.user.username} - {self.item.title}"

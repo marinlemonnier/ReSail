@@ -157,3 +157,18 @@
 .btn-secondary:hover { background: #e0e0e0; }
 
 .listing-date { text-align: center; font-size: 12px; color: #ccc; margin-top: 20px; }
+
+/* Rend les miniatures cliquables visuellement */
+.thumbnail {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    opacity: 0.6; /* Un peu transparent par défaut */
+    border-radius: 8px;
+    width: 80px;  /* Ajuste selon tes besoins */
+    height: 80px;
+    object-fit: cover;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+}

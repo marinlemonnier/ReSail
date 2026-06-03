@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'Core/css/edit_profile.css' %}">
+
+<div class="edit-profile-wrapper">
+    <a href="{% url 'my_profile' %}" style="display:block; margin-bottom:20px; color:#000;">← Retour</a>
+    
+    <div class="edit-card">
+        <h1 style="font-size: 20px; margin-bottom: 30px;">Modifier le profil</h1>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="avatar-section">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" class="current-avatar">
+                {% endif %}
+                <div class="upload-area">
+                    <label>Photo</label>
+                    {{ form.profile_picture }}
+                </div>
+            </div>
+
+            {% for field in form %}
+                {% if field.name == 'phone_prefix' %}
+                    {# On ignore ce champ ici car on le gère juste en dessous #}
+                {% elif field.name == 'phone_number' %}
+                    <div class="field-wrapper">
+                        <label>Téléphone</label>
+                        <div class="phone-group">
+                            <select name="phone_prefix" class="form-control-prefix">
+                                {% for value, label in form.fields.phone_prefix.choices %}
+                                    <option value="{{ value }}" {% if form.phone_prefix.value == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {{ field }}
+                        </div>
+                    </div>
+                {% elif field.name != 'profile_picture' %}
+                    <div class="field-wrapper">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn-save">Enregistrer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

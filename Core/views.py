@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ItemForm, ItemImageFormSet, SignUpForm
-from .models import Item, Status
+from django.contrib import messages
+from .forms import ItemForm, ItemImageFormSet, SignUpForm, EditProfileForm
+from .models import Item, Status, Favorite
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm
 
 def logout_view(request):
     logout(request) # Déconnecte l'utilisateur
@@ -12,7 +14,7 @@ def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
+            user = form.save() 
             login(request, user)
             return redirect('welcome')
     else:
@@ -49,12 +51,16 @@ def welcome(request):
         items = items.order_by('title')
     else:
         items = items.order_by('-date_publication')
-    return render(request, 'welcome.html', {'items': items})
-
-#Ancien version crash test 
-#def welcome(request):
-    #items = Item.objects.all().order_by('-date_publication')  # Récupère tous les objets pour les afficher sur la page d'accueil dans l'ordre d'ajout 
-    #return render(request, 'welcome.html', {'items': items})
+        
+    user_favorite_ids = []
+    if request.user.is_authenticated:
+        # CORRECTION : On entoure la requête avec list() pour que le HTML puisse lire la liste proprement
+        user_favorite_ids = list(Favorite.objects.filter(user=request.user).values_list('item_id', flat=True))
+        
+    return render(request, 'welcome.html', {
+        'items': items,
+        'user_favorite_ids': user_favorite_ids
+    })
 
 #Créer une annonce / on utilise ici @login_required pour vérifier que l'utilisateur est connecté avant de créer une annonce.
 @login_required
@@ -79,14 +85,35 @@ def create_item(request):
 
 # Tout le detail de l'annonce
 def item_detail(request, item_id):
+    is_favorite = False
     # Ça récupère l'item spécifique grâce à l'ID passé dans l'URL
     item = get_object_or_404(Item, pk=item_id)
-    return render(request, 'item_detail.html', {'item': item}) 
+    if request.user.is_authenticated:
+        is_favorite = Favorite.objects.filter(user=request.user, item=item).exists()
+    
+    return render(request, 'item_detail.html', {
+        'item': item, 
+        'is_favorite': is_favorite
+        }) 
     
 
 # Mon profil
 def my_profile(request):
-    return render(request, 'my_profile.html')
+    user_items = request.user.item_set.all()
+    return render(request, 'my_profile.html', {'user_items': user_items})
+
+#Editer mon profil
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save() # Le formulaire gère la concaténation tout seul grâce à sa méthode save()
+            return redirect('my_profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+    return render(request, 'edit_profile.html', {'form': form})
+
 
 #Supprimer umon annonce
 @login_required
@@ -124,3 +151,22 @@ def edit_item(request, item_id):
         'formset': formset, 
         'item': item
     })
+
+#Les favoris
+@login_required
+def favorites_list(request):
+    """Affiche la page contenant uniquement les annonces enregistrées de l'utilisateur."""
+    favorites = Favorite.objects.filter(user=request.user).select_related('item')
+    return render(request, 'favorites.html', {'favorites': favorites})
+
+@login_required
+def toggle_favorite(request, item_id):
+    """Ajoute ou retire une annonce des favoris puis redirige là où était l'utilisateur."""
+    item = get_object_or_404(Item, pk=item_id)
+    favorite, created = Favorite.objects.get_or_create(user=request.user, item=item)
+    
+    if not created:
+        favorite.delete()
+        
+    # Redirige sur la page précédente (ou à l'accueil 'welcome' par défaut)
+    return redirect(request.META.get('HTTP_REFERER', 'welcome'))
