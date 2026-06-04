@@ -71,9 +71,21 @@
                         </button>
                     </form>
                 {% else %}
-                    <a href="{% url 'item_contact' item.id %}" class="btn-primary" style="display: block; text-align: center; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; text-decoration: none; box-sizing: border-box;">
-                        Contact Seller
-                    </a>
+                    <div style="background-color: #f1f3f5; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6; text-align: center;">
+                        <h4 style="margin-top: 0;">Seller : {{ item.user.username }}</h4>
+                        
+                        {% if item.user.phone_number %}
+                            <a href="tel:{{ item.user.phone_number }}" class="btn-primary" style="display: block; text-align: center; width: 100%; padding: 10px; border-radius: 8px; text-decoration: none; box-sizing: border-box; margin-top: 10px;">
+                                📞 {{ item.user.phone_number }}
+                            </a>
+                        {% else %}
+                            <p style="color: #6c757d; font-style: italic;">No phone number provided.</p>
+                        {% endif %}
+                        
+                        <a href="mailto:{{ item.user.email }}" class="btn-primary" style="display: block; text-align: center; width: 100%; padding: 10px; border-radius: 8px; text-decoration: none; box-sizing: border-box; margin-top: 10px;">
+                            ✉️ Send an email
+                        </a>
+                    </div>
                 {% endif %}
             </div>
 

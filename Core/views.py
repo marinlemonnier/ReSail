@@ -170,3 +170,8 @@ def toggle_favorite(request, item_id):
         
     # Redirige sur la page précédente (ou à l'accueil 'welcome' par défaut)
     return redirect(request.META.get('HTTP_REFERER', 'welcome'))
+
+@login_required
+def item_contact(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    return render(request, 'item_contact.html', {'item': item})
