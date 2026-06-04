@@ -43,8 +43,27 @@
                 </div>
             </div>
 
-            <h1 class="product-title">{{ item.title }}</h1>
+            <h1 class="product-title" style="margin-bottom: 10px;">{{ item.title }}</h1>
             <p class="product-price">{{ item.price }} {{ item.currency }}</p>
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+
+            <p class="favorites-count">
+                <span style="color: rgb(255, 77, 77); font-weight: bold;">{{ item.favorited_by.all|length }}</span> 
+                {% if item.favorited_by.all|length <= 1 %}Person also likes{% else %}People also like{% endif %} this item
+            </p>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'toggle_favorite' item.id %}" style="background: #ffffff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.12); transition: transform 0.2s; flex-shrink: 0; margin-left: 15px;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" title="Toggle favorite">
+                        
+                        {% if is_favorite %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ff4d4d" stroke="#ff4d4d" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        {% else %}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#666666" stroke-width="2" style="transition: stroke 0.2s;" onmouseover="this.style.stroke='#ff4d4d'" onmouseout="this.style.stroke='#666666'"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        {% endif %}
+                    </a>
+                {% endif %}
+            </div>
             
             <ul class="product-details-list">
                 <li><span>Category:</span> {{ item.category.title }}</li>
