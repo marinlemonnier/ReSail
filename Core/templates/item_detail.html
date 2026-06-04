@@ -100,4 +100,20 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mainImage = document.querySelector(".main-item-img");
+        const thumbnails = document.querySelectorAll(".thumbnail");
+
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener("click", function() {
+                mainImage.src = this.src;
+                
+                // Optionnel : effet visuel de sélection
+                thumbnails.forEach(t => t.style.opacity = "0.6");
+                this.style.opacity = "1";
+            });
+        });
+    });
+</script>
 {% endblock %}
