@@ -11,25 +11,25 @@ Resail is a classified ads platform specifically designed for the international 
    Email    : admin@showcase.com
    Items    : 0
 
-2. UTILISATEUR 1 : Oskar Berg
+2. USER 1 : Oskar Berg
    Username : oskar_berg
    Password : testpass123
    Email    : oskar@example.com
    Phone    : +47 12345678
 
-3. UTILISATEUR 2 : Emma Dahl
+3. USER 2 : Emma Dahl
    Username : emma_dahl
    Password : testpass123
    Email    : emma@example.com
    Phone    : +47 98765432
 
-4. UTILISATEUR 3 : Jane Brown
+4. USER 3 : Jane Brown
    Username : jane_brown
    Password : testpass123
    Email    : jane@example.com
    Phone    : +47 77123456
-   
-5. UTILISATEUR 4 : Homer Simpson
+
+5. User 4 : Homer Simpson
    Username : homer_simpson
    Password : testpass123
    Email    : homer@example.com
